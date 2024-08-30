@@ -31,7 +31,7 @@ Next.js and TypeScript: We chose Next.js for its hybrid rendering capabilities (
 
 Tailwind CSS: A utility-first CSS framework was used for rapid development and consistency in design.
 
-SEO Optimization: Dynamic meta tags and title tags were implemented for better SEO. A sitemap and robots.txt file were generated for improved search engine crawling.
+SEO Optimization: Dynamic meta tags and title tags were implemented for better SEO. A sitemap and robots.txt file were generated to improve search engine crawling.
 
 Performance: The platform is optimized with server-side rendering and static site generation where appropriate, ensuring fast load times and good SEO performance.
 
@@ -41,9 +41,9 @@ The following steps were taken to ensure SEO compliance:
 
 Meta Tags and Titles: Each page, especially product pages, has dynamically generated meta tags, including Open Graph tags for social media sharing.
 
-Sitemap and robots.txt: A sitemap and robots.txt file are generated automatically using the next-sitemap package, ensuring search engines can crawl the site efficiently.
+Sitemap and robots.txt: The next-sitemap package automatically generates a sitemap and robots.txt file, ensuring search engines can crawl the site efficiently.
 
-Responsive Design: The site is fully responsive and optimized for mobile devices, which is a critical factor for SEO ranking.
+Responsive Design: The site is fully responsive and optimized for mobile devices, which is critical for SEO ranking.
 
 Live Demo
-You can view the live demo of the application at L.
+You can view the live demo of the application at https://e-commerceplatforms.netlify.app/
