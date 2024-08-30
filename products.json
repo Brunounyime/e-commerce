@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1724964406509",
+    "name": "Bag",
+    "price": 15000,
+    "category": "Clothing"
+  },
+  {
+    "id": "1724967737539",
+    "name": "Content",
+    "price": 8000,
+    "category": "Books"
+  },
+  {
+    "id": "1724996481805",
+    "name": "Sandra",
+    "price": 7888,
+    "category": "Books"
+  }
+]
