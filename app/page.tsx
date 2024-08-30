@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import MainLayout from './components/templates/mainLayout';
 import ProductGrid from './components/organisms/productGrid';
 import SearchBar from './components/molecules/searchBar';
-import Loader from './components/atoms/loader'; // Import the Loader component
+import Loader from './components/atoms/loader'; 
 
 interface Product {
   id: string;
@@ -17,32 +17,26 @@ interface Product {
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Track loading state
+  const [loading, setLoading] = useState<boolean>(true); 
 
-  // Fetch all products when the component mounts
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch('/api/products');
         const products: Product[] = await response.json();
         setProducts(products);
-        setFilteredProducts(products); // Display all products initially
+        setFilteredProducts(products); 
       } catch (error) {
         console.error('Failed to fetch products:', error);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       }
     };
     fetchProducts();
   }, []);
 
-  // const handleSearch = (query: string) => {
-  //   const lowercasedQuery = query.toLowerCase();
-  //   const filtered = products.filter((product) =>
-  //     product.name.toLowerCase().includes(lowercasedQuery)
-  //   );
-  //   setFilteredProducts(filtered);
-  // };
+  
 
   const handleSearch = (query: string) => {
     const lowercasedQuery = query.toLowerCase();
@@ -50,8 +44,7 @@ const HomePage: React.FC = () => {
       product.name.toLowerCase().includes(lowercasedQuery)
     );
     
-    console.log('Search Query:', lowercasedQuery); // Debugging log
-    console.log('Filtered Products:', filtered); // Debugging log
+   
   
     setFilteredProducts(filtered);
   };
@@ -88,11 +81,11 @@ const HomePage: React.FC = () => {
         <meta property="og:title" content="Home - E-commerce Platform" />
         <meta property="og:description" content="Discover and buy the best products online." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourwebsite.com/" />
-        <meta property="og:image" content="https://yourwebsite.com/images/logo.jpg" />
+        <meta property="og:url" content="https://e-commerceplatforms.netlify.app/" />
+        <meta property="og:image" content="https://e-commerceplatforms.netlify.app/images/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      {loading ? ( // Conditionally render the loader or the product list
+      {loading ? (
         <Loader />
       ) : (
         <>

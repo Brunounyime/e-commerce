@@ -40,8 +40,8 @@ const ProductDetailPage: React.FC = () => {
         <meta property="og:title" content={product.name} />
         <meta property="og:description" content={product.description} />
         <meta property="og:type" content="product" />
-        <meta property="og:url" content={`https://yourwebsite.com/product/${product.id}`} />
-        <meta property="og:image" content={`https://yourwebsite.com/images/${product.id}.jpg`} />
+        <meta property="og:url" content={`https://e-commerceplatforms.netlify.app/product/${product.id}`} />
+        <meta property="og:image" content={`https://e-commerceplatforms.netlify.app/images/${product.id}.jpg`} />
       </Head>
       <div className="max-w-3xl mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">{product.name}</h1>

@@ -1,4 +1,4 @@
-// app/[slug]/page.tsx
+
 import React from 'react';
 import MainLayout from '../components/templates/mainLayout';
 import Head from 'next/head';

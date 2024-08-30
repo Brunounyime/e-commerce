@@ -46,4 +46,4 @@ Sitemap and robots.txt: A sitemap and robots.txt file are generated automaticall
 Responsive Design: The site is fully responsive and optimized for mobile devices, which is a critical factor for SEO ranking.
 
 Live Demo
-You can view the live demo of the application at Live Demo URL.
+You can view the live demo of the application at L.

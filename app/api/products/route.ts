@@ -5,7 +5,6 @@ import path from 'path';
 
 const dataFilePath = path.join(process.cwd(), 'products.json');
 
-// Helper function to read data from JSON file
 const readData = () => {
   try {
     const data = fs.readFileSync(dataFilePath, 'utf8');
@@ -16,7 +15,6 @@ const readData = () => {
   }
 };
 
-// Helper function to write data to JSON file
 const writeData = (data: any) => {
   try {
     fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
