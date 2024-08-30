@@ -5,6 +5,7 @@ import MainLayout from '../../../components/templates/mainLayout';
 import ProductForm from '../../../components/molecules/productForm';
 import { useParams, useRouter } from 'next/navigation';
 import Head from 'next/head';
+import Loader from '@/app/components/atoms/loader';
 
 const EditProductPage: React.FC = () => {
   const { id } = useParams();
@@ -42,7 +43,7 @@ const EditProductPage: React.FC = () => {
   };
 
   if (!product) {
-    return <MainLayout>Loading...</MainLayout>;
+    return <MainLayout><Loader/></MainLayout>;
   }
 
   return (

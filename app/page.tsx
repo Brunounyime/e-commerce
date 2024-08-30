@@ -6,6 +6,7 @@ import MainLayout from './components/templates/mainLayout';
 import ProductGrid from './components/organisms/productGrid';
 import SearchBar from './components/molecules/searchBar';
 import Loader from './components/atoms/loader'; 
+import ProductsManager from './components/productsManager';
 
 interface Product {
   id: string;
@@ -85,6 +86,7 @@ const HomePage: React.FC = () => {
         <meta property="og:image" content="https://e-commerceplatforms.netlify.app/images/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+      <ProductsManager />
       {loading ? (
         <Loader />
       ) : (
