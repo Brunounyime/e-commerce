@@ -1,12 +1,15 @@
-'use client'
+'use client';
 
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import MainLayout from './components/templates/mainLayout';
 import ProductGrid from './components/organisms/productGrid';
 import SearchBar from './components/molecules/searchBar';
-import Loader from './components/atoms/loader'; 
-import ProductsManager from './components/productsManager';
+import Loader from './components/atoms/loader';
+import {
+  loadProductsFromLocalStorage,
+  deleteProductFromLocalStorage,
+} from './utils/localStorageUtils'; // Import utility functions
 
 interface Product {
   id: string;
@@ -18,53 +21,37 @@ interface Product {
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
 
-  
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProducts = () => {
       try {
-        const response = await fetch('/api/products');
-        const products: Product[] = await response.json();
+        const products = loadProductsFromLocalStorage(); // Fetch products from LocalStorage
         setProducts(products);
-        setFilteredProducts(products); 
+        setFilteredProducts(products);
       } catch (error) {
-        console.error('Failed to fetch products:', error);
+        console.error('Failed to load products:', error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
     fetchProducts();
   }, []);
-
-  
 
   const handleSearch = (query: string) => {
     const lowercasedQuery = query.toLowerCase();
     const filtered = products.filter((product) =>
       product.name.toLowerCase().includes(lowercasedQuery)
     );
-    
-   
-  
     setFilteredProducts(filtered);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = (id: string) => {
     try {
-      const response = await fetch('/api/products', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }),
-      });
-
-      if (response.ok) {
-        const updatedProducts = products.filter((product) => product.id !== id);
-        setProducts(updatedProducts);
-        setFilteredProducts(updatedProducts);
-      } else {
-        console.error('Failed to delete the product');
-      }
+      deleteProductFromLocalStorage(id); // Delete product from LocalStorage
+      const updatedProducts = products.filter((product) => product.id !== id);
+      setProducts(updatedProducts);
+      setFilteredProducts(updatedProducts);
     } catch (error) {
       console.error('Failed to delete product:', error);
     }
@@ -78,7 +65,10 @@ const HomePage: React.FC = () => {
     <MainLayout>
       <Head>
         <title>Home - E-commerce Platform</title>
-        <meta name="description" content="Welcome to our e-commerce platform. Discover and buy the best products online." />
+        <meta
+          name="description"
+          content="Welcome to our e-commerce platform. Discover and buy the best products online."
+        />
         <meta property="og:title" content="Home - E-commerce Platform" />
         <meta property="og:description" content="Discover and buy the best products online." />
         <meta property="og:type" content="website" />
@@ -86,7 +76,6 @@ const HomePage: React.FC = () => {
         <meta property="og:image" content="https://e-commerceplatforms.netlify.app/images/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <ProductsManager />
       {loading ? (
         <Loader />
       ) : (

@@ -6,58 +6,57 @@ import ProductForm from '../../../components/molecules/productForm';
 import { useParams, useRouter } from 'next/navigation';
 import Head from 'next/head';
 import Loader from '@/app/components/atoms/loader';
+import ErrorMessage from '@/app/components/atoms/errorMessage';
+import { getProductFromLocalStorage, updateProductInLocalStorage } from '../../../utils/localStorageUtils';
 
 const EditProductPage: React.FC = () => {
   const { id } = useParams();
   const router = useRouter();
-  const [product, setProduct] = useState<{ name: string; price: number; category: string } | null>(null);
+  const [product, setProduct] = useState<{ id: string; name: string; price: number; category: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
 
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch('/api/products');
-        const products = await response.json();
-        const foundProduct = products.find((p: any) => p.id === id);
-        if (foundProduct) {
-          setProduct(foundProduct);
-        }
-      } catch (error) {
-        console.error('Failed to fetch product:', error);
-      }
-    };
-
-    fetchProduct();
+    const foundProduct = getProductFromLocalStorage(id as string);
+    if (foundProduct) {
+      setProduct(foundProduct);
+    } else {
+      setError('Product not found.');
+    }
   }, [id]);
 
-  const handleEditProduct = async (data: { name: string; price: number; category: string }) => {
+  const handleEditProduct = (data: { name: string; price: number; category: string }) => {
     if (!id) return;
 
-    await fetch('/api/products', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, ...data }),
-    });
-    router.push('/');
+    try {
+      const updatedProduct = { id: id as string, ...data };
+      updateProductInLocalStorage(updatedProduct);
+      router.push('/');
+    } catch (error) {
+      setError('Failed to update the product.');
+    }
   };
 
-  if (!product) {
-    return <MainLayout><Loader/></MainLayout>;
+  if (!product && !error) {
+    return (
+      <MainLayout>
+        <Loader />
+      </MainLayout>
+    );
   }
 
   return (
     <MainLayout>
-       <Head>
-        <title>Edit {product.name} - E-commerce Platform</title>
-        <meta name="description" content={`Edit details of ${product.name}.`} />
+      <Head>
+        <title>Edit {product?.name || 'Product'} - E-commerce Platform</title>
+        <meta name="description" content={`Edit details of ${product?.name || 'the product'}.`} />
       </Head>
       <h2 className="text-2xl font-bold mb-4">Edit Product</h2>
-      <ProductForm initialData={product} onSubmit={handleEditProduct} successMessage="Product updated successfully!" />
+      {error && <ErrorMessage message={error} />}
+      {product && <ProductForm initialData={product} onSubmit={handleEditProduct} />}
     </MainLayout>
   );
 };
-
-
 
 export default EditProductPage;
