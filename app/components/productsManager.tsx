@@ -106,7 +106,7 @@ export default function ProductsManager() {
         setProducts((prevProducts) =>
           prevProducts.map((p) => (p.id === editingProduct.id ? editingProduct : p))
         );
-        setEditingProduct(null); // Clear editing state
+        setEditingProduct(null);
       });
     }
   };

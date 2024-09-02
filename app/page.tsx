@@ -9,7 +9,7 @@ import Loader from './components/atoms/loader';
 import {
   loadProductsFromLocalStorage,
   deleteProductFromLocalStorage,
-} from './utils/localStorageUtils'; // Import utility functions
+} from './utils/localStorageUtils'; 
 
 interface Product {
   id: string;
@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchProducts = () => {
       try {
-        const products = loadProductsFromLocalStorage(); // Fetch products from LocalStorage
+        const products = loadProductsFromLocalStorage(); 
         setProducts(products);
         setFilteredProducts(products);
       } catch (error) {
@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
 
   const handleDelete = (id: string) => {
     try {
-      deleteProductFromLocalStorage(id); // Delete product from LocalStorage
+      deleteProductFromLocalStorage(id); 
       const updatedProducts = products.filter((product) => product.id !== id);
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
